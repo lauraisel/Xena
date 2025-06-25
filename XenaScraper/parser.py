@@ -14,11 +14,11 @@ def parse_tsv_file(file_path):
     with open(file_path, 'r') as f:
         lines = f.readlines()
 
-    # header: first line, first col empty or "id", then patient IDs
+    
     header = lines[0].strip().split('\t')
-    patient_ids = header[1:]  # skip first col
+    patient_ids = header[1:]  
 
-    # collect gene expressions per patient
+    
     gene_data = {pid: {} for pid in patient_ids}
 
     for line in lines[1:]:
@@ -31,9 +31,9 @@ def parse_tsv_file(file_path):
             try:
                 gene_data[pid][gene] = float(val)
             except ValueError:
-                gene_data[pid][gene] = None  # or 0 or skip
+                gene_data[pid][gene] = None  
 
-    # create documents
+    
     for pid in patient_ids:
         doc = {
             'patient_id': pid,
