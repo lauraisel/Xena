@@ -5,21 +5,21 @@ import urllib.parse
 async def get_dataset_gz_links(hub_url):
     dataset_gz_links = []
 
-    real_base = "https://xenabrowser.net/datapages/"  # for href resolution
+    real_base = "https://xenabrowser.net/datapages/"  
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
 
-        # Step 1: Visit initial hub URL
+        
         await page.goto(hub_url, wait_until="networkidle")
         await page.wait_for_selector("a[href*='?cohort=']", timeout=15000)
 
         content = await page.content()
         soup = BeautifulSoup(content, "html.parser")
 
-        # Step 2: Extract cohort links using real base
+        
         cohort_links = [
             urllib.parse.urljoin(real_base, a["href"])
             for a in soup.select("a[href*='?cohort=']")
