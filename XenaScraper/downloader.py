@@ -31,12 +31,12 @@ def download_and_extract_gz(url):
             raise ValueError(f"Unexpected URL format: {url}")
 
         cohort_raw = parts[-2]  
-        cohort_clean = cohort_raw.replace(".", "").replace("sampleMap", "")  # TCGALAML
+        cohort_clean = cohort_raw.replace(".", "").replace("sampleMap", "")  
 
-        data_file = parts[-1].replace(".gz", "")  # HiSeqV2_PANCAN
+        data_file = parts[-1].replace(".gz", "")  
 
         final_filename = f"{cohort_clean}{data_file}.tsv"
-        gz_path = os.path.join(output_folder, parts[-1])  # Keep original .gz name
+        gz_path = os.path.join(output_folder, parts[-1])  
         tsv_path = os.path.join(output_folder, final_filename)
 
         
