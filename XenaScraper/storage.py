@@ -16,15 +16,15 @@ def ensure_bucket():
 
 def upload_to_minio(bucket_name, file_path, object_name=None):
     try:
-        # Ensure the bucket exists
+        
         if not minio_client.bucket_exists(bucket_name):
             minio_client.make_bucket(bucket_name)
 
-        # Use filename if object name not provided
+        
         if object_name is None:
             object_name = os.path.basename(file_path)
 
-        # Upload the file
+        
         minio_client.fput_object(
             bucket_name=bucket_name,
             object_name=object_name,
