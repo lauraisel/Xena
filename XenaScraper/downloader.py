@@ -25,12 +25,12 @@ def download_and_extract_gz(url):
         response.raise_for_status()
 
         path = unquote(urlparse(url).path)
-        parts = path.strip("/").split("/")  # e.g., ['download', 'TCGA.LAML.sampleMap', 'HiSeqV2_PANCAN.gz']
+        parts = path.strip("/").split("/")  
 
         if len(parts) < 2:
             raise ValueError(f"Unexpected URL format: {url}")
 
-        cohort_raw = parts[-2]  # TCGA.LAML.sampleMap
+        cohort_raw = parts[-2]  
         cohort_clean = cohort_raw.replace(".", "").replace("sampleMap", "")  # TCGALAML
 
         data_file = parts[-1].replace(".gz", "")  # HiSeqV2_PANCAN
@@ -39,16 +39,16 @@ def download_and_extract_gz(url):
         gz_path = os.path.join(output_folder, parts[-1])  # Keep original .gz name
         tsv_path = os.path.join(output_folder, final_filename)
 
-        # Save .gz file
+        
         with open(gz_path, "wb") as f:
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
 
-        # Extract and save as .tsv
+        
         with gzip.open(gz_path, "rb") as f_in, open(tsv_path, "wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
 
-        os.remove(gz_path)  # Optionally delete .gz
+        os.remove(gz_path)  
         return tsv_path
 
     except Exception as e:
