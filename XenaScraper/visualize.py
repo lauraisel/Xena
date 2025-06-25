@@ -11,10 +11,7 @@ TARGET_GENES = [
 ]
 
 def get_gene_expression_data(patient_ids):
-    """
-    Fetch gene expression documents from MongoDB for given patient IDs.
-    Returns a list of documents.
-    """
+    
     client = MongoClient(MONGO_URI)
     db = client[DB_NAME]
     collection = db[COLLECTION_NAME]
@@ -24,14 +21,12 @@ def get_gene_expression_data(patient_ids):
 
 
 def plot_gene_expression(docs, canvas, ax):
-    """
-    Plot gene expression data using matplotlib on given ax and draw on canvas.
-    """
+    
     if not docs:
         raise ValueError("No documents to plot.")
 
     ax.clear()
-    width = 0.8 / len(docs)  # width of each patient's bars
+    width = 0.8 / len(docs)  
     x = range(len(TARGET_GENES))
 
     for i, doc in enumerate(docs):
