@@ -8,7 +8,7 @@ import visualize
 from downloader import download_and_extract_all
 from scraper import get_dataset_gz_links
 from storage import upload_all_tsv_from_folder
-from parser import import_to_mongodb  # import your function here
+from parser import import_to_mongodb  
 
 base_url = "https://xenabrowser.net/datapages/?hub=https://tcga.xenahubs.net:443"
 
@@ -16,7 +16,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Gene Expression Data Tool")
-        self.geometry("600x500")  # increased size for canvas
+        self.geometry("600x500")  
 
         self.download_btn = tk.Button(self, text="Download TSV Files", command=self.download_tsv)
         self.download_btn.pack(pady=10)
@@ -27,18 +27,18 @@ class App(tk.Tk):
         self.mongo_import_btn = tk.Button(self, text="Import TSV to MongoDB", command=self.import_tsv_to_mongo)
         self.mongo_import_btn.pack(pady=10)
 
-        # Patient IDs input label + entry
+        
         tk.Label(self, text="Enter patient IDs (comma-separated):").pack(pady=(20, 0))
         self.patient_id_entry = tk.Entry(self, width=50)
         self.patient_id_entry.pack(pady=5)
 
-        # Visualize button
+        
         self.visualize_btn = tk.Button(self, text="Visualize Gene Expression", command=self.visualize_gene_expression)
         self.visualize_btn.pack(pady=10)
 
-        # Setup matplotlib figure and canvas
+        
         self.fig, self.ax = plt.subplots(figsize=(6,4))
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self)  # Tk widget
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self)  
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True, pady=10)
 
     def download_tsv(self):
